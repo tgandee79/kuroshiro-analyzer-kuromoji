@@ -1,19 +1,14 @@
 {
     "presets": [
-        "env"
+        ["env", {
+            "modules": false
+        }]
     ],
     "plugins": [
-        "add-module-exports",
-        [
-            "transform-runtime",
-            {
-                "helpers": false,
-                "polyfill": false,
-                "regenerator": true,
-                "moduleName": "babel-runtime"
-            }
-        ]
+        "transform-runtime",
+        "add-module-exports"
     ],
+    "sourceType": "module",
     "env": {
         "cjs": {
             "presets": [

@@ -1,4 +1,4 @@
-import kuromoji from "kuromoji";
+import kuromoji from "@charlescoeder/react-native-kuromoji";
 
 // Check where we are
 let isNode = false;
