@@ -22,8 +22,6 @@ node_modules
 coverage
 
 # Generated files
-dist/*
-lib/*
 
 # Others
 .DS_Store
