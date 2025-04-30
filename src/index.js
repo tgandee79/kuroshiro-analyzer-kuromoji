@@ -1,12 +1,5 @@
 import kuromoji from "@charlescoeder/react-native-kuromoji";
 
-// Check where we are
-let isNode = false;
-const isBrowser = (typeof window !== "undefined");
-if (!isBrowser && typeof module !== "undefined" && module.exports) {
-    isNode = true;
-}
-
 /**
  * Kuromoji based morphological analyzer for kuroshiro
  */
@@ -16,16 +9,13 @@ class Analyzer {
      * @param {Object} [options] JSON object which have key-value pairs settings
      * @param {string} [options.dictPath] Path of the dictionary files
      */
-    constructor({ dictPath } = {}) {
+    constructor({ assets } = {}) {
         this._analyzer = null;
 
-        if (!dictPath) {
-            if (isNode) this._dictPath = require.resolve("kuromoji").replace(/src(?!.*src).*/, "dict/");
-            else this._dictPath = "node_modules/kuromoji/dict/";
+        if (!assets) {
+            throw new Error("Dictionary assets must be provided");
         }
-        else {
-            this._dictPath = dictPath;
-        }
+        this._assets = assets;
     }
 
     /**
@@ -36,7 +26,7 @@ class Analyzer {
         return new Promise((resolve, reject) => {
             const self = this;
             if (this._analyzer == null) {
-                kuromoji.builder({ dicPath: this._dictPath }).build((err, newAnalyzer) => {
+                kuromoji.builder({ assets: this._assets }).build((err, newAnalyzer) => {
                     if (err) {
                         return reject(err);
                     }
